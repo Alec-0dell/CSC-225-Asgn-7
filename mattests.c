@@ -7,8 +7,19 @@
 #include <assert.h>
 #include "matrix.h"
 
+void test01matscl(void);
+void test02matpscl(void);
+void test03mattrn(void);
+void test04matptrn(void);
+void test05matadd(void);
+void test06matpadd(void);
+void test07matmul(void);
+void test08matpmul(void);
+void test09matmul(void);
+
 /* test01matscl: Tests multidimensional matrix scaling. */
-void test01matscl() {
+void test01matscl(void)
+{
     int mat[2][2] = {{1, 2}, {3, 4}};
 
     matscl(&mat[0][0], 2, 2);
@@ -20,7 +31,8 @@ void test01matscl() {
 }
 
 /* test02matpscl: Tests array-of-pointers matrix scaling. */
-void test02matpscl() {
+void test02matpscl(void)
+{
     int row1[2] = {1, 2}, row2[2] = {3, 4}, *mat[2];
 
     mat[0] = row1;
@@ -34,7 +46,8 @@ void test02matpscl() {
 }
 
 /* test03mattrn: Tests multidimensional matrix transposition. */
-void test03mattrn() {
+void test03mattrn(void)
+{
     int mat[2][2] = {{1, 2}, {3, 4}};
 
     mattrn(&mat[0][0], 2);
@@ -46,7 +59,8 @@ void test03mattrn() {
 }
 
 /* test04matptrn: Tests array-of-pointers matrix scaling. */
-void test04matptrn() {
+void test04matptrn(void)
+{
     int row1[2] = {1, 2}, row2[2] = {3, 4}, *mat[2];
 
     mat[0] = row1;
@@ -60,7 +74,8 @@ void test04matptrn() {
 }
 
 /* test05matadd: Tests multidimensional matrix addition. */
-void test05matadd() {
+void test05matadd(void)
+{
     int mata[2][2] = {{1, 2}, {3, 4}},
         matb[2][2] = {{4, 3}, {2, 1}},
         matc[2][2];
@@ -74,7 +89,8 @@ void test05matadd() {
 }
 
 /* test06matpadd: Tests array-of-pointers matrix addition. */
-void test06matpadd() {
+void test06matpadd(void)
+{
     int row1[2] = {1, 2}, row2[2] = {3, 4}, *mata[2],
         row3[2] = {4, 3}, row4[2] = {2, 1}, *matb[2],
         row5[2], row6[2], *matc[2];
@@ -94,7 +110,8 @@ void test06matpadd() {
 }
 
 /* test07matmul: Tests multidimensional matrix multiplication. */
-void test07matmul() {
+void test07matmul(void)
+{
     int mata[2][2] = {{1, 2}, {3, 4}},
         matb[2][2] = {{4, 3}, {2, 1}},
         matc[2][2];
@@ -108,7 +125,8 @@ void test07matmul() {
 }
 
 /* test08matpmul: Tests array-of-pointers matrix multiplication. */
-void test08matpmul() {
+void test08matpmul(void)
+{
     int row1[2] = {1, 2}, row2[2] = {3, 4}, *mata[2],
         row3[2] = {4, 3}, row4[2] = {2, 1}, *matb[2],
         row5[2], row6[2], *matc[2];
@@ -127,7 +145,28 @@ void test08matpmul() {
     assert(matc[1][1] == 13);
 }
 
-int main(void) {
+/* test09matmul: Tests multidimensional matrix multiplication with a 3x3 matrix */
+void test09matmul(void)
+{
+    int mata[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}},
+        matb[3][3] = {{9, 8, 7}, {6, 5, 4}, {3, 2, 1}},
+        matc[3][3];
+
+    matmul(&mata[0][0], &matb[0][0], &matc[0][0], 3);
+
+    assert(matc[0][0] == 30);
+    assert(matc[0][1] == 24);
+    assert(matc[0][2] == 18);
+    assert(matc[1][0] == 84);
+    assert(matc[1][1] == 69);
+    assert(matc[1][2] == 54);
+    assert(matc[2][0] == 138);
+    assert(matc[2][1] == 114);
+    assert(matc[2][2] == 90);
+}
+
+int main(void)
+{
     test01matscl();
     test02matpscl();
     test03mattrn();
@@ -136,6 +175,7 @@ int main(void) {
     test06matpadd();
     test07matmul();
     test08matpmul();
+    test09matmul();
 
     return 0;
 }
